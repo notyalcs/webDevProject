@@ -1,4 +1,3 @@
-
 let grid = [[], [], [], []];
 let images = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8];
 
@@ -22,12 +21,13 @@ makeGrid();
 function createCards() {
     for (let i = 0; i < grid.length; i++) {
         let newDiv = document.createElement("div");
-        newDiv.id = "DivTest";
+        newDiv.id = "row" + i.toString();
+        document.body.appendChild(newDiv);
         for (let j = 0; j < grid[0].length; j++) {
             let newButton = document.createElement("button");
             newButton.innerHTML = grid[i][j];
             console.log(newButton);
-            document.getElementById("DivTest").appendChild(newButton);
+            document.getElementById("row" + i.toString()).appendChild(newButton);
         }
     }
 }
