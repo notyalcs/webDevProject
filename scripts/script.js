@@ -1,6 +1,8 @@
+
+let grid = [[], [], [], []];
+let images = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8];
+
 function makeGrid() {
-    let grid = [[], [], [], []];
-    let images = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8];
 
     let selection = null;
 
@@ -13,5 +15,15 @@ function makeGrid() {
         }
     }
     console.log(grid);
+    return grid;
 }
 makeGrid();
+
+function createCards() {
+    for (let i = 0; i < grid.length; i++) {
+
+        for (let j = 0; j < grid[0].length; j++) {
+            console.log("hi");
+        }
+    }
+}
