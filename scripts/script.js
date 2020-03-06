@@ -20,9 +20,14 @@ makeGrid();
 
 function createCards() {
     for (let i = 0; i < grid.length; i++) {
-
+        let newDiv = document.createElement("div");
         for (let j = 0; j < grid[0].length; j++) {
             console.log("hi");
+            newButton = document.createElement("button");
+            newButton.innerHTML = grid[i][j];
+            document.newDiv.appendChild(newButton);
         }
+        document.body.appendChild(newDiv);
     }
 }
+createCards();
