@@ -9,7 +9,7 @@ function makeGrid() {
         for (let j = 0; j < 4; j++) {
             selection = Math.floor(Math.random() * images.length);
             grid[i][j] = images[selection];
-            console.log(grid[i][j]);
+            // console.log(grid[i][j]);
             images.splice(selection, 1);
         }
     }
@@ -22,10 +22,10 @@ function createCards() {
     for (let i = 0; i < grid.length; i++) {
         let newDiv = document.createElement("div");
         for (let j = 0; j < grid[0].length; j++) {
-            console.log("hi");
-            newButton = document.createElement("button");
+            let newButton = document.createElement("button");
             newButton.innerHTML = grid[i][j];
-            document.newDiv.appendChild(newButton);
+            console.log(newButton);
+            document.body.appendChild(newButton);
         }
         document.body.appendChild(newDiv);
     }
