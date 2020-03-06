@@ -21,13 +21,13 @@ makeGrid();
 function createCards() {
     for (let i = 0; i < grid.length; i++) {
         let newDiv = document.createElement("div");
+        document.body.appendChild(newDiv);
         for (let j = 0; j < grid[0].length; j++) {
             let newButton = document.createElement("button");
             newButton.innerHTML = grid[i][j];
             console.log(newButton);
             document.body.appendChild(newButton);
         }
-        document.body.appendChild(newDiv);
     }
 }
 createCards();
