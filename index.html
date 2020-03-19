@@ -12,10 +12,15 @@
     <h1>Hangman Game</h1>
     <div id="guesses">Wrong Guesses: 
         <!-- this doesn't have to be like this, it can be done differetnly, but for now i think its okay-->
-        <span id="wrong"><!--This span will be incremented whenever the user incorrectly guesses --></span>of
-        <span id="maxLetters"><!--this span will be used to put the amount of letters in the word here --></span>
+        <!--This first span will be incremented whenever the user incorrectly guesses -->
+        <!--this second span will be used to put the amount of letters in the word here -->
+        <span id="wrong"></span> of <span id="maxLetters"></span>
     </div>
     <br><br>
+    <div class="center">
+        <img id="hangmanPicture" src="images/1.jpg" alt="hangman picture">
+        <p id="guessedWord">word</p>
+    </div>
     <!-- div for the "keyboard" buttons that the user will use to guess-->
     <div id="userKeyboard"></div>
     <script src="scripts/script.js"></script>

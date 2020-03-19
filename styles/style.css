@@ -3,6 +3,9 @@ h1{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 50px;
 }
+.center{
+    text-align:center;
+}
 #guesses{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
