@@ -1,34 +1,17 @@
-let grid = [[], [], [], []];
-let images = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8];
-
-function makeGrid() {
-
-    let selection = null;
-
-    for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < 4; j++) {
-            selection = Math.floor(Math.random() * images.length);
-            grid[i][j] = images[selection];
-            // console.log(grid[i][j]);
-            images.splice(selection, 1);
-        }
-    }
-    console.log(grid);
-    return grid;
-}
-makeGrid();
-
-function createCards() {
-    for (let i = 0; i < grid.length; i++) {
-        let newDiv = document.createElement("div");
-        newDiv.id = "row" + i.toString();
-        document.body.appendChild(newDiv);
-        for (let j = 0; j < grid[0].length; j++) {
-            let newButton = document.createElement("button");
-            newButton.innerHTML = grid[i][j];
-            console.log(newButton);
-            document.getElementById("row" + i.toString()).appendChild(newButton);
-        }
+var wordBank = ["hello", "goodbye", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+let randomWord = "";
+function createButtons() {
+    let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    for (let i = 0; i < alphabet.length; i++) {
+        let button = document.createElement("button");
+        button.setAttribute('class', 'alphabet')
+        button.innerHTML = alphabet[i];
+        userKeyboard.appendChild(button);
     }
 }
-createCards();
+function chooseWord(){
+    randomWord = wordBank[Math.floor(Math.random() * wordBank.length)];
+    console.log(randomWord);
+}
+createButtons();
+chooseWord();
