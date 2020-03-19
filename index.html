@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="styles/style.css">
 </head>
+
 <body>
-    <h1>Hello all!</h1>
-    <input type="button" value="This is a button">
-    <pre>
-        <h1>Options:</h1>
-    </pre>
+    <h1>Hangman Game</h1>
+    <div id="guesses">Wrong Guesses: 
+        <!-- this doesn't have to be like this, it can be done differetnly, but for now i think its okay-->
+        <!--This first span will be incremented whenever the user incorrectly guesses -->
+        <!--this second span will be used to put the amount of letters in the word here -->
+        <span id="wrong"></span> of <span id="maxLetters"></span>
+    </div>
+    <br><br>
+    <div class="center">
+        <img id="hangmanPicture" src="images/1.jpg" alt="hangman picture">
+        <p id="guessedWord">word</p>
+    </div>
+    <!-- div for the "keyboard" buttons that the user will use to guess-->
+    <div id="userKeyboard"></div>
     <script src="scripts/script.js"></script>
 </body>
+
 </html>
