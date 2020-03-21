@@ -30,3 +30,13 @@ button{
     background-color: whitesmoke;
     transform: translateY(2px);
 }
+
+.pressed {
+    background-color: darkgrey;
+    margin-left:10px;
+    border-radius: 5px;
+}
+
+#chosenWord {
+    font-family: 'Courier New', Courier, monospace;
+}
