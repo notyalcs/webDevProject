@@ -30,3 +30,7 @@ button{
     background-color: whitesmoke;
     transform: translateY(2px);
 }
+
+#chosenWord {
+    font-family: 'Courier New', Courier, monospace;
+}
