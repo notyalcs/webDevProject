@@ -22,7 +22,7 @@ function chooseWord() {
     wordLength = randomWord.length;
 }
 function wordGuess(){
-    for(int i = 0; i < wordLength; i++){
+    for(let i = 0; i < wordLength; i++){
         
     }
     document.getElementById("guessedWord").innerHTML = status
