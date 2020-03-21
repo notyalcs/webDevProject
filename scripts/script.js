@@ -88,6 +88,9 @@ function replaceLine(letter) {
 function loseLife() {
     guesses++;
     document.getElementById("wrong").innerHTML = guesses;
+    if (guesses < 6){
+        document.getElementById("hangmanPicture").src = "./images/" + (guesses + 1) + ".jpg";
+    }
 }
 
 
