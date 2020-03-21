@@ -52,7 +52,7 @@ function createLetters() {
     chosenWord = chooseWord();
 
     for (let i = 0; i < chosenWord.length; i++) {
-        document.getElementById("chosenWord").innerHTML += "_";
+        document.getElementById("chosenWord").innerHTML += "-";
         letters.push(chosenWord.charAt(i));
     }
 
