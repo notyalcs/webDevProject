@@ -19,9 +19,9 @@ function createButtons() {
         let newButton = document.createElement("BUTTON");
         newButton.innerHTML = "&#" + asciiPosition;
         asciiPosition++;
-        newButton.id = i.toString;
+        newButton.id = newButton.innerHTML;
         newButton.className = "alphabet";
-        newButton.onclick = function () {letterPressed(newButton.innerHTML)};
+        newButton.onclick = function () {letterPressed(newButton.id)};
         userKeyboard.appendChild(newButton);
     }
 
@@ -52,7 +52,7 @@ function createLetters() {
     chosenWord = chooseWord();
 
     for (let i = 0; i < chosenWord.length; i++) {
-        document.getElementById("chosenWord").innerHTML += "_";
+        document.getElementById("chosenWord").innerHTML += "-";
         letters.push(chosenWord.charAt(i));
     }
 
@@ -70,6 +70,8 @@ function letterPressed(letter) {
     if (inWord == false) {
         loseLife();
     }
+    document.getElementById(letter).disabled = true;
+    document.getElementById(letter).className = "pressed";
 }
 
 function replaceLine(letter) {
@@ -86,7 +88,12 @@ function replaceLine(letter) {
 function loseLife() {
     guesses++;
     document.getElementById("wrong").innerHTML = guesses;
+    if (guesses < 6){
+        document.getElementById("hangmanPicture").src = "./images/" + (guesses + 1) + ".jpg";
+    }
 }
+
+
 
 function wordGuess(){
     for(let i = 0; i < wordLength; i++){
