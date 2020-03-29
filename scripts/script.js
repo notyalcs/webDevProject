@@ -98,8 +98,8 @@ function loseLife() {
 ////-------- Timer for the Game -------//
 
 function timer() {
-    var sec = 59;
-    var timer = setInterval(function () {
+    let sec = 59;
+    let timer = setInterval(function () {
         document.getElementById('gameTimer').innerHTML = '00:' + sec;
         sec--;
         if (sec < 0) {
