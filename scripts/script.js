@@ -12,7 +12,7 @@ let letters = [];
 function createButtons() {
     //let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     let asciiPosition = 65;
-    
+
 
     // Changed to ascii instead of alphabet and added onclick event
     for (let i = 0; i < 26; i++) {
@@ -21,7 +21,9 @@ function createButtons() {
         asciiPosition++;
         newButton.id = newButton.innerHTML;
         newButton.className = "alphabet";
-        newButton.onclick = function () {letterPressed(newButton.id)};
+        newButton.onclick = function () {
+            letterPressed(newButton.id)
+        };
         userKeyboard.appendChild(newButton);
     }
 
@@ -65,7 +67,7 @@ function letterPressed(letter) {
         if (letter == letters[i]) {
             replaceLine(letter);
             inWord = true;
-        } 
+        }
     }
     if (inWord == false) {
         loseLife();
@@ -88,16 +90,30 @@ function replaceLine(letter) {
 function loseLife() {
     guesses++;
     document.getElementById("wrong").innerHTML = guesses;
-    if (guesses < 6){
+    if (guesses < 6) {
         document.getElementById("hangmanPicture").src = "./images/" + (guesses + 1) + ".jpg";
     }
 }
 
+////-------- Timer for the Game -------//
+
+function timer() {
+    var sec = 59;
+    var timer = setInterval(function () {
+        document.getElementById('gameTimer').innerHTML = '00:' + sec;
+        sec--;
+        if (sec < 0) {
+            clearInterval(timer);
+        }
+    }, 1000);
+}
+
+window.onload = timer;
 
 
-function wordGuess(){
-    for(let i = 0; i < wordLength; i++){
-        
+function wordGuess() {
+    for (let i = 0; i < wordLength; i++) {
+
     }
     document.getElementById("guessedWord").innerHTML = status
 }
