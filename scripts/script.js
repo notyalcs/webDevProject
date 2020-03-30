@@ -84,7 +84,10 @@ function replaceLine(letter) {
             text[i] = letter;
         }
     }
+    
     document.getElementById("chosenWord").innerHTML = text;
+    setTimeout(checkDone, 0);
+    // checkDone();
 }
 
 function loseLife() {
@@ -94,6 +97,35 @@ function loseLife() {
         document.getElementById("hangmanPicture").src = "./images/" + (guesses + 1) + ".jpg";
     }
 }
+
+function checkDone() {
+    let done = true;
+    let activeWord = document.getElementById("chosenWord").innerHTML;
+    for (let i = 0; i < activeWord.length; i++) {
+        if (activeWord.charAt(i) == "-") {
+            done = false;
+        }
+    }
+    if (done) {
+        victory(getName());
+    }
+}
+
+function getName() {
+    return prompt("Thank you for playing!\nPlease enter your name:");
+}
+
+function victory(name) {
+    document.getElementById("results").innerHTML = "Congratulations " + name + ", you won!";
+    // Database stuff
+    // recordScore();
+    // displayLeaderboard();
+}
+
+function gameOver() {
+
+}
+
 
 ////-------- Timer for the Game -------//
 

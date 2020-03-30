@@ -43,6 +43,11 @@ button{
     font-weight: bolder;
 }
 
+#resultsBox {
+    text-align: center;
+    font-size: xx-large;
+}
+
 #timer{
     text-align: center;
 }
