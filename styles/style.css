@@ -42,3 +42,33 @@ button{
     font-size: 30px;
     font-weight: bolder;
 }
+
+#resultsBox {
+    text-align: center;
+    font-size: 40px;
+}
+
+#definition {
+    font-size: 20px;
+    font-style: italic;
+}
+
+#endEarly {
+    text-align: center;
+}
+#endEarly button {
+    background-color: lightgrey;
+    width: 200px;
+    font-size: 20px;
+}
+#endEarly button:hover{
+    background-color: white;
+}
+#endEarly button:active{
+    background-color: whitesmoke;
+    transform: translateY(2px);
+}
+
+#timer{
+    text-align: center;
+}
