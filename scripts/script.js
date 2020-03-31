@@ -89,7 +89,7 @@ function letterPressed(letter) {
     }
     if (inWord == false) {
         loseLife();
-        score--;
+        updateScore(-1);
     }
     document.getElementById(letter).disabled = true;
     document.getElementById(letter).className = "pressed";
@@ -101,13 +101,18 @@ function replaceLine(letter) {
         if (chosenWord.charAt(i) == letter) {
             text = text.substring(0, i) + letter + text.substring(i + 1, text.length);
             text[i] = letter;
-            score++;
+            updateScore(1);
         }
     }
     
     document.getElementById("chosenWord").innerHTML = text;
     setTimeout(checkDone, 0);
     // checkDone();
+}
+
+function updateScore(amount) {
+    score += amount;
+    document.getElementById("score").innerHTML = "Score: " + score;
 }
 
 function loseLife() {
