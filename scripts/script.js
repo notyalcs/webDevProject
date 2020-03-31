@@ -90,6 +90,8 @@ function loseLife() {
     document.getElementById("wrong").innerHTML = guesses;
     if (guesses < 6){
         document.getElementById("hangmanPicture").src = "./images/" + (guesses + 1) + ".jpg";
+    } else if (guesses >= 6){
+       console.log( "YOU LOST BUD");
     }
 }
 
