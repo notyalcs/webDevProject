@@ -10,12 +10,12 @@
 
 <body>
     <h1>Hangman Game</h1>
-    
+
     <!-- Timer for the Game -->
     <div id="timer">
         <h2>Time Left</h2>
         <p id="gameTimer">01:00</p>
-        <p id = 'result'></p>
+        <p id='result'></p>
     </div>
 
     <!-- <div id="guesses">Wrong Guesses:
@@ -43,8 +43,30 @@
         <button id="endGame" onclick="gameOver()">End</button>
     </div>
     <br>
-    <div id="leaderboard"></div>
-    <script src="scripts/script.js"></script>
+    <div id="container">
+        <h3>Scoreboard</h3>
+        <ol id="leaderboard">
+        </ol>
+    </div>
+
+    <!-------------->
+    <!-- FireBase -->
+    <!-------------->
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-analytics.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-database.js"></script>
+
+    <!---------------->
+    <!-- JavaScript -->
+    <!---------------->
+    <script src="scripts/script.js"></script>>
 </body>
 
 </html>
