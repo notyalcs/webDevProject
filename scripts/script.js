@@ -70,7 +70,7 @@ function chooseWord() {
 
 function createLetters() {
     chosenWord = chooseWord();
-
+    document.getElementById("chosenWord").style.color = "black";
     document.getElementById("chosenWord").innerHTML = "";
     letters = [];
 
@@ -151,6 +151,7 @@ function getName() {
 }
 
 function victory() {
+    document.getElementById("chosenWord").style.color = "green";
     let name = getName();
     document.getElementById("results").innerHTML = "Congratulations " + name + ", you won!";
     document.getElementById("endGame").disabled = true;
@@ -161,6 +162,8 @@ function victory() {
 
 function gameOver() {
     document.getElementById("endGame").disabled = true;
+    reveal();
+    document.getElementById("chosenWord").style.color = "red";
     let buttonLetters = document.getElementsByClassName("alphabet");
     while (buttonLetters.length > 0) {
         buttonLetters[0].disabled = true;
@@ -169,6 +172,14 @@ function gameOver() {
 
     let name = getName();
     document.getElementById("results").innerHTML = "Game over " + name;
+}
+
+function reveal() {
+    let word = "";
+    for (let i = 0; i < letters.length; i++) {
+        word += letters[i];
+    }
+    document.getElementById("chosenWord").innerHTML = word;
 }
 
 function restart() {
