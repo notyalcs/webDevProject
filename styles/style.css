@@ -53,6 +53,22 @@ button{
     font-style: italic;
 }
 
+#endEarly {
+    text-align: center;
+}
+#endEarly button {
+    background-color: lightgrey;
+    width: 200px;
+    font-size: 20px;
+}
+#endEarly button:hover{
+    background-color: white;
+}
+#endEarly button:active{
+    background-color: whitesmoke;
+    transform: translateY(2px);
+}
+
 #timer{
     text-align: center;
 }

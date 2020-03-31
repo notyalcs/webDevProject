@@ -71,12 +71,13 @@ function chooseWord() {
 function createLetters() {
     chosenWord = chooseWord();
 
+    document.getElementById("chosenWord").innerHTML = "";
+    letters = [];
+
     for (let i = 0; i < chosenWord.length; i++) {
         document.getElementById("chosenWord").innerHTML += "-";
         letters.push(chosenWord.charAt(i));
     }
-
-    return letters;
 }
 
 function letterPressed(letter) {
@@ -84,6 +85,7 @@ function letterPressed(letter) {
     for (let i = 0; i < letters.length; i++) {
         if (letter == letters[i]) {
             replaceLine(letter);
+            updateScore(1);
             inWord = true;
         }
     }
@@ -101,7 +103,6 @@ function replaceLine(letter) {
         if (chosenWord.charAt(i) == letter) {
             text = text.substring(0, i) + letter + text.substring(i + 1, text.length);
             text[i] = letter;
-            updateScore(1);
         }
     }
     
@@ -117,7 +118,7 @@ function updateScore(amount) {
 
 function loseLife() {
     guesses++;
-    document.getElementById("wrong").innerHTML = guesses;
+    // document.getElementById("wrong").innerHTML = guesses;
     if (guesses < 7) {
         document.getElementById("hangmanPicture").src = "./images/" + (guesses + 1) + ".jpg";
     } else {
@@ -139,25 +140,45 @@ function checkDone() {
 }
 
 function getName() {
-    return prompt("Thank you for playing!\nPlease enter your name:");
+    let name = prompt("Thank you for playing!\nPlease enter your name:");
+    return name;
 }
 
 function victory() {
     let name = getName();
     document.getElementById("results").innerHTML = "Congratulations " + name + ", you won!";
+    document.getElementById("endGame").disabled = true;
     // Database stuff
     // recordScore();
     // displayLeaderboard();
 }
 
 function gameOver() {
-    let letters = document.getElementsByClassName("alphabet");
-    for (let i = 0; i < letters.length; i++) {
-        letters[i].disabled = true;
+    let buttonLetters = document.getElementsByClassName("alphabet");
+    for (let i = 0; i < buttonLetters.length; i++) {
+        buttonLetters[i].disabled = true;
     }
 
     let name = getName();
     document.getElementById("results").innerHTML = "Game over " + name;
+}
+
+function restart() {
+    score = 0;
+    createLetters();
+
+    guesses = 0;
+    document.getElementById("hangmanPicture").src = "./images/" + (guesses + 1) + ".jpg";
+
+    let buttonLetters = document.getElementsByClassName("pressed");
+    while (buttonLetters.length > 0) {
+        buttonLetters[0].disabled = false;
+        buttonLetters[0].className = "alphabet";
+    }
+    document.getElementById("score").innerHTML = "Score: " + score;
+    document.getElementById("endGame").disabled = false;
+
+    console.log(letters);
 }
 
 
