@@ -154,9 +154,11 @@ function victory() {
 }
 
 function gameOver() {
+    document.getElementById("endGame").disabled = true;
     let buttonLetters = document.getElementsByClassName("alphabet");
-    for (let i = 0; i < buttonLetters.length; i++) {
-        buttonLetters[i].disabled = true;
+    while (buttonLetters.length > 0) {
+        buttonLetters[0].disabled = true;
+        buttonLetters[0].className = "pressed";
     }
 
     let name = getName();
@@ -169,6 +171,7 @@ function restart() {
 
     guesses = 0;
     document.getElementById("hangmanPicture").src = "./images/" + (guesses + 1) + ".jpg";
+    document.getElementById("results").innerHTML = "";
 
     let buttonLetters = document.getElementsByClassName("pressed");
     while (buttonLetters.length > 0) {
