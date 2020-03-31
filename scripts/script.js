@@ -7,7 +7,7 @@ let guesses = 0;
 let wordLength = 0;
 let status = null;
 let letters = [];
-
+let score = 0;
 
 function createButtons() {
     //let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
@@ -40,9 +40,27 @@ function letterPressed(letter) {
 }
 
 function chooseWord() {
-    let wordBank = ["hello", "goodbye", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
-    let randomWord = wordBank[Math.floor(Math.random() * wordBank.length)].toUpperCase();
+    let wordBank = [
+        "committee", "A body of persons delegated to consider, investigate, take action on, or report on some matter.",
+        "syndrome", "A group of signs and symptons that occur together and characterize a particular abnormality or condition.",
+        "dizzy", "Having a whirling sensation in the heead with a tendency to fall.",
+        "junk", "Something of little meaning, worth, or significance.",
+        "jinxed", "To have foredoomed a failure or misfortune.",
+        "awkward", "Lacking ease or grace; causing embarrassment.",
+        "queue", "A waiting line especially of persons or vehicles.",
+        "axiom", "A statement accepted as true as the basis for argument or inference.",
+        "buffing", "The act of polishing or shining a surface.",
+        "jazz", "American music developed especially from ragtime and blues."
+    ];
+
+    let randomNumber = Math.floor(Math.random() * wordBank.length);
+    if (randomNumber % 2 == 1) {
+        randomNumber--;
+    }
+    let randomWord = wordBank[randomNumber].toUpperCase();
     console.log(randomWord);
+
+    document.getElementById("definition").innerHTML = wordBank[randomNumber + 1];
 
     return randomWord;
 
@@ -71,6 +89,7 @@ function letterPressed(letter) {
     }
     if (inWord == false) {
         loseLife();
+        score--;
     }
     document.getElementById(letter).disabled = true;
     document.getElementById(letter).className = "pressed";
@@ -82,6 +101,7 @@ function replaceLine(letter) {
         if (chosenWord.charAt(i) == letter) {
             text = text.substring(0, i) + letter + text.substring(i + 1, text.length);
             text[i] = letter;
+            score++;
         }
     }
     
@@ -93,8 +113,10 @@ function replaceLine(letter) {
 function loseLife() {
     guesses++;
     document.getElementById("wrong").innerHTML = guesses;
-    if (guesses < 6) {
+    if (guesses < 7) {
         document.getElementById("hangmanPicture").src = "./images/" + (guesses + 1) + ".jpg";
+    } else {
+        setTimeout(gameOver, 0);
     }
 }
 
@@ -107,7 +129,7 @@ function checkDone() {
         }
     }
     if (done) {
-        victory(getName());
+        victory();
     }
 }
 
@@ -115,7 +137,8 @@ function getName() {
     return prompt("Thank you for playing!\nPlease enter your name:");
 }
 
-function victory(name) {
+function victory() {
+    let name = getName();
     document.getElementById("results").innerHTML = "Congratulations " + name + ", you won!";
     // Database stuff
     // recordScore();
@@ -123,7 +146,13 @@ function victory(name) {
 }
 
 function gameOver() {
+    let letters = document.getElementsByClassName("alphabet");
+    for (let i = 0; i < letters.length; i++) {
+        letters[i].disabled = true;
+    }
 
+    let name = getName();
+    document.getElementById("results").innerHTML = "Game over " + name;
 }
 
 
