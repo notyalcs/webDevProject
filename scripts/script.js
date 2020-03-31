@@ -155,6 +155,11 @@ function victory() {
     let name = getName();
     document.getElementById("results").innerHTML = "Congratulations " + name + ", you won!";
     document.getElementById("endGame").disabled = true;
+    let buttonLetters = document.getElementsByClassName("alphabet");
+    while (buttonLetters.length > 0) {
+        buttonLetters[0].disabled = true;
+        buttonLetters[0].className = "pressed";
+    }
     // Database stuff
     // recordScore();
     // displayLeaderboard();
@@ -218,12 +223,12 @@ function restart() {
 //window.onload = timer;
 
 
-function wordGuess() {
-    for (let i = 0; i < wordLength; i++) {
+// function wordGuess() {
+//     for (let i = 0; i < wordLength; i++) {
 
-    }
-    document.getElementById("guessedWord").innerHTML = status
-}
+//     }
+//     document.getElementById("guessedWord").innerHTML = status
+// }
 createButtons();
 createLetters();
 //chooseWord();
