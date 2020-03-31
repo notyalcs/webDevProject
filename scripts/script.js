@@ -43,7 +43,7 @@ function chooseWord() {
     let wordBank = [
         "committee", "A body of persons delegated to consider, investigate, take action on, or report on some matter.",
         "syndrome", "A group of signs and symptons that occur together and characterize a particular abnormality or condition.",
-        "dizzy", "Having a whirling sensation in the heead with a tendency to fall.",
+        "dizzy", "Having a whirling sensation in the head with a tendency to fall.",
         "junk", "Something of little meaning, worth, or significance.",
         "jinxed", "To have foredoomed a failure or misfortune.",
         "awkward", "Lacking ease or grace; causing embarrassment.",
@@ -105,9 +105,9 @@ function replaceLine(letter) {
             text[i] = letter;
         }
     }
-    
+
     document.getElementById("chosenWord").innerHTML = text;
-    setTimeout(checkDone, 0);
+    checkDone();
     // checkDone();
 }
 
@@ -123,6 +123,7 @@ function loseLife() {
         document.getElementById("hangmanPicture").src = "./images/" + (guesses + 1) + ".jpg";
     } else {
         setTimeout(gameOver, 0);
+        // gameOver();
     }
 }
 
@@ -135,12 +136,17 @@ function checkDone() {
         }
     }
     if (done) {
-        victory();
+        setTimeout(victory, 0);
+        // victory();
     }
 }
 
 function getName() {
-    let name = prompt("Thank you for playing!\nPlease enter your name:");
+    let name = null;
+    name = prompt("Thank you for playing!\nPlease enter your name:", "Name");
+    // setTimeout(function () {
+    //     name = prompt("Thank you for playing!\nPlease enter your name:", "Name")
+    // }, 0);
     return name;
 }
 
@@ -187,18 +193,18 @@ function restart() {
 
 ////-------- Timer for the Game -------//
 
-function timer() {
-    let sec = 59;
-    let timer = setInterval(function () {
-        document.getElementById('gameTimer').innerHTML = '00:' + sec;
-        sec--;
-        if (sec < 0) {
-            clearInterval(timer);
-        }
-    }, 1000);
-}
+// function timer() {
+//     let sec = 59;
+//     let timer = setInterval(function () {
+//         document.getElementById('gameTimer').innerHTML = '00:' + sec;
+//         sec--;
+//         if (sec < 0) {
+//             clearInterval(timer);
+//         }
+//     }, 1000);
+// }
 
-window.onload = timer;
+//window.onload = timer;
 
 
 function wordGuess() {
