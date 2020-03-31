@@ -4,26 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Group 1 Set D</title>
     <link rel="stylesheet" type="text/css" href="styles/style.css">
 </head>
 
 <body>
     <h1>Hangman Game</h1>
-    <div id="guesses">Wrong Guesses: 
-        <!-- this doesn't have to be like this, it can be done differetnly, but for now i think its okay-->
-        <!--This first span will be incremented whenever the user incorrectly guesses -->
-        <!--this second span will be used to put the amount of letters in the word here -->
-        <label id="wrong">0</label>
-        <!-- <span id="maxLetters"></span> -->
+    
+    <!-- Timer for the Game -->
+    <div id="timer">
+        <h2>Time Left</h2>
+        <p id="gameTimer">01:00</p>
+        <p id = 'result'></p>
     </div>
-    <br><br>
+
+    <!-- <div id="guesses">Wrong Guesses:
+        this doesn't have to be like this, it can be done differetnly, but for now i think its okay
+        This first span will be incremented whenever the user incorrectly guesses
+        this second span will be used to put the amount of letters in the word here
+        <label id="wrong">0</label>
+        <span id="maxLetters"></span>
+    </div> -->
+    <!-- <br><br> -->
     <div class="center">
         <img id="hangmanPicture" src="images/1.jpg" alt="hangman picture">
+        <p id="definition"></p>
         <p id="chosenWord"></p>
     </div>
     <!-- div for the "keyboard" buttons that the user will use to guess-->
+    <br>
     <div id="userKeyboard"></div>
+    <div id="resultsBox">
+        <p id="score">Score: 0</p>
+        <p id="results"></p>
+    </div>
+    <div id="endEarly">
+        <button onclick="restart()">Restart</button>
+        <button id="endGame" onclick="gameOver()">End</button>
+    </div>
+    <br>
+    <div id="leaderboard"></div>
     <script src="scripts/script.js"></script>
 </body>
 
