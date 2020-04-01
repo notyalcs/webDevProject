@@ -8,6 +8,52 @@ let wordLength = 0;
 let status = null;
 let letters = [];
 let score = 0;
+let input;
+let database;
+
+// Web app's Firebase configuration
+let firebaseConfig = {
+    apiKey: "AIzaSyAl5q_x-YE0E-Fh9oTEv2uRoVWT1O9pUok",
+    authDomain: "comp1537-hangman.firebaseapp.com",
+    databaseURL: "https://comp1537-hangman.firebaseio.com",
+    projectId: "comp1537-hangman",
+    storageBucket: "comp1537-hangman.appspot.com",
+    messagingSenderId: "546718337292",
+    appId: "1:546718337292:web:01d29f4f96ab851f506129",
+    measurementId: "G-K0CC2YVP2Z"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+database = firebase.database();
+
+let ref = database.ref("scores");
+ref.on("value", getData, errData);
+
+function getData(data) {
+    let leaderBoardScores = document.querySelectorAll("li");
+    for (let i = 0; i < leaderBoardScores.length; i++) {
+        leaderBoardScores[i].remove();
+    }
+
+    let scoretest = data.val();
+    let keys = Object.keys(scoretest);
+    console.log(keys);
+    for (let i = 0; i < keys.length; i++) {
+        let k = keys[i];
+        let name = scoretest[k].name;
+        let score = scoretest[k].score;
+        let li = document.createElement("li");
+        let textli = document.createTextNode(name + ": " + score);
+        li.appendChild(textli);
+        document.getElementById("leaderboard").appendChild(li);
+    }
+}
+
+function errData(err) {
+    console.log("Error!");
+    console.log(err);
+}
 
 function createButtons() {
     //let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
@@ -70,7 +116,7 @@ function chooseWord() {
 
 function createLetters() {
     chosenWord = chooseWord();
-
+    document.getElementById("chosenWord").style.color = "black";
     document.getElementById("chosenWord").innerHTML = "";
     letters = [];
 
@@ -142,18 +188,25 @@ function checkDone() {
 }
 
 function getName() {
-    let name = null;
-    name = prompt("Thank you for playing!\nPlease enter your name:", "Name");
+    input = null;
+    input = prompt("Thank you for playing!\nPlease enter your name:", "Name");
     // setTimeout(function () {
     //     name = prompt("Thank you for playing!\nPlease enter your name:", "Name")
     // }, 0);
-    return name;
+    return input;
 }
 
 function victory() {
-    let name = getName();
-    document.getElementById("results").innerHTML = "Congratulations " + name + ", you won!";
+    document.getElementById("chosenWord").style.color = "green";
+    let input = getName();
+    document.getElementById("results").innerHTML = "Congratulations " + input + ", you won!";
     document.getElementById("endGame").disabled = true;
+    let buttonLetters = document.getElementsByClassName("alphabet");
+    while (buttonLetters.length > 0) {
+        buttonLetters[0].disabled = true;
+        buttonLetters[0].className = "pressed";
+    }
+    sendData();
     // Database stuff
     // recordScore();
     // displayLeaderboard();
@@ -161,14 +214,36 @@ function victory() {
 
 function gameOver() {
     document.getElementById("endGame").disabled = true;
+    reveal();
+    document.getElementById("chosenWord").style.color = "red";
     let buttonLetters = document.getElementsByClassName("alphabet");
     while (buttonLetters.length > 0) {
         buttonLetters[0].disabled = true;
         buttonLetters[0].className = "pressed";
     }
 
-    let name = getName();
-    document.getElementById("results").innerHTML = "Game over " + name;
+    input = getName();
+    document.getElementById("results").innerHTML = "Game over " + input;
+
+    sendData();
+}
+
+function sendData() {
+    let data = {
+        name: input,
+        score: score
+    }
+    console.log(data);
+    let ref = database.ref("scores");
+    ref.push(data);
+}
+
+function reveal() {
+    let word = "";
+    for (let i = 0; i < letters.length; i++) {
+        word += letters[i];
+    }
+    document.getElementById("chosenWord").innerHTML = word;
 }
 
 function restart() {
@@ -207,12 +282,12 @@ function restart() {
 //window.onload = timer;
 
 
-function wordGuess() {
-    for (let i = 0; i < wordLength; i++) {
+// function wordGuess() {
+//     for (let i = 0; i < wordLength; i++) {
 
-    }
-    document.getElementById("guessedWord").innerHTML = status
-}
+//     }
+//     document.getElementById("guessedWord").innerHTML = status
+// }
 createButtons();
 createLetters();
 //chooseWord();
