@@ -120,7 +120,7 @@ function loseLife() {
     guesses++;
     // document.getElementById("wrong").innerHTML = guesses;
     if (guesses < 7) {
-        document.getElementById("hangmanPicture").src = "./images/" + (guesses + 1) + ".jpg";
+        document.getElementById("hangmanPicture").src = "./images2/" + (guesses + 1) + ".jpg";
     } else {
         setTimeout(gameOver, 0);
         // gameOver();
@@ -176,7 +176,7 @@ function restart() {
     createLetters();
 
     guesses = 0;
-    document.getElementById("hangmanPicture").src = "./images/" + (guesses + 1) + ".jpg";
+    document.getElementById("hangmanPicture").src = "./images2/" + (guesses + 1) + ".jpg";
     document.getElementById("results").innerHTML = "";
 
     let buttonLetters = document.getElementsByClassName("pressed");
