@@ -154,7 +154,8 @@ function loseLife() {
     if (guesses < 7) {
         document.getElementById("hangmanPicture").src = "./images2/" + (guesses + 1) + ".jpg";
     } else {
-        setTimeout(gameOver, 0);
+        document.getElementById("hangmanPicture").src = "./images2/8.jpg";
+        setTimeout(gameOver, 50);
     }
 }
 
