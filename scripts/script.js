@@ -62,6 +62,7 @@ function createButtons() {
 
     // Changed to ascii instead of alphabet and added onclick event
     for (let i = 0; i < 26; i++) {
+        
         let newButton = document.createElement("BUTTON");
         newButton.innerHTML = "&#" + asciiPosition;
         asciiPosition++;
@@ -69,8 +70,10 @@ function createButtons() {
         newButton.className = "alphabet";
         newButton.onclick = function () {
             letterPressed(newButton.id)
+            
         };
         userKeyboard.appendChild(newButton);
+        
     }
 
     // for (let i = 0; i < alphabet.length; i++) {
