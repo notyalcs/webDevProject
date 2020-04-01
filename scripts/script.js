@@ -9,7 +9,6 @@ let status = null;
 let letters = [];
 let score = 0;
 let input;
-let database;
 
 // Web app's Firebase configuration
 let firebaseConfig = {
@@ -25,35 +24,9 @@ let firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
-database = firebase.database();
 
-let ref = database.ref("scores");
-ref.on("value", getData, errData);
-
-function getData(data) {
-    let leaderBoardScores = document.querySelectorAll("li");
-    for (let i = 0; i < leaderBoardScores.length; i++) {
-        leaderBoardScores[i].remove();
-    }
-
-    let scoretest = data.val();
-    let keys = Object.keys(scoretest);
-    console.log(keys);
-    for (let i = 0; i < keys.length; i++) {
-        let k = keys[i];
-        let name = scoretest[k].name;
-        let score = scoretest[k].score;
-        let li = document.createElement("li");
-        let textli = document.createTextNode(name + ": " + score);
-        li.appendChild(textli);
-        document.getElementById("leaderboard").appendChild(li);
-    }
-}
-
-function errData(err) {
-    console.log("Error!");
-    console.log(err);
-}
+// Access to database.
+let db = firebase.firestore();
 
 function createButtons() {
     //let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
@@ -201,7 +174,7 @@ function getName() {
 
 function victory() {
     document.getElementById("chosenWord").style.color = "green";
-    let input = getName();
+    input = getName();
     document.getElementById("results").innerHTML = "Congratulations " + input + ", you won!";
     document.getElementById("endGame").disabled = true;
     let buttonLetters = document.getElementsByClassName("alphabet");
@@ -209,10 +182,7 @@ function victory() {
         buttonLetters[0].disabled = true;
         buttonLetters[0].className = "pressed";
     }
-    sendData();
-    // Database stuff
-    // recordScore();
-    // displayLeaderboard();
+    saveScore();
 }
 
 function gameOver() {
@@ -227,19 +197,46 @@ function gameOver() {
 
     input = getName();
     document.getElementById("results").innerHTML = "Game over " + input;
-
-    sendData();
+    
+    saveScore();
 }
 
-function sendData() {
-    let data = {
-        name: input,
-        score: score
+// Save scores to database.
+function saveScore() {
+    if (input !== "") {
+        // Add new entry.
+        db.collection("tests").doc().set({
+            name: input,
+            score: score
+        })
+            .then(function () {
+                console.log("Entry succesfully written!");
+                updateTests();
+            })
+            .catch(function (err) {
+                console.error("Error writing entry: ", err);
+            });
+    } else {
+        alert("Please enter a name");
     }
-    console.log(data);
-    let ref = database.ref("scores");
-    ref.push(data);
 }
+
+// Adds scores from database to visible Scoreboard.
+function updateTests() {
+    // Clear current scores.
+    document.getElementById("scoreboard").innerHTML = "<tr><th>Name</th><th>Score</th></tr>";
+
+    // Get the top 5 scores.
+    db.collection("tests").orderBy("score", "desc").limit(5).get().then((snapshot) => {
+        snapshot.forEach((doc) => {
+            document.getElementById("scoreboard").innerHTML += "<tr>" +
+                "<td>" + doc.data().name + "</td>" +
+                "<td>" + doc.data().score + "</td>" +
+                "</tr>";
+        })
+    })
+}
+window.onload = updateTests;
 
 function reveal() {
     let word = "";
