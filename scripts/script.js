@@ -1,5 +1,12 @@
-//var wordBank = ["hello", "goodbye", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"] Moved to be local
-//let randomWord = "";
+/////////////////////////////////////////////////////////////
+//        COMP 1537 Hangman Project                        //
+//       Sean, Alkarim, Gaurav, Joban                      //
+//                 Group D1                                //
+/////////////////////////////////////////////////////////////
+
+/////////////////////////////
+//     Global Variables    //
+/////////////////////////////
 let chosenWord = "";
 let wordAnswer = "";
 let maxWrong = 6;
@@ -10,7 +17,9 @@ let letters = [];
 let score = 0;
 let input;
 
-// Web app's Firebase configuration
+/////////////////////////////
+//     Firebase Linking    //
+/////////////////////////////
 let firebaseConfig = {
     apiKey: "AIzaSyAl5q_x-YE0E-Fh9oTEv2uRoVWT1O9pUok",
     authDomain: "comp1537-hangman.firebaseapp.com",
@@ -28,12 +37,12 @@ firebase.analytics();
 // Access to database.
 let db = firebase.firestore();
 
+////////////////////////////////////////
+//     Dynamically Create Alphabet    //
+////////////////////////////////////////
 function createButtons() {
-    //let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     let asciiPosition = 65;
-
-
-    // Changed to ascii instead of alphabet and added onclick event
+    
     for (let i = 0; i < 26; i++) {
         
         let newButton = document.createElement("BUTTON");
@@ -46,21 +55,12 @@ function createButtons() {
             
         };
         userKeyboard.appendChild(newButton);
-        
     }
-
-    // for (let i = 0; i < alphabet.length; i++) {
-    //     let button = document.createElement("button");
-    //     button.setAttribute('class', 'alphabet')
-    //     button.innerHTML = alphabet[i];
-    //     userKeyboard.appendChild(button);
-    // }
 }
 
-function letterPressed(letter) {
-    console.log(letter);
-}
-
+////////////////////////////////////////////////////////
+//     Choose Word and Definition From a Word Bank    //
+////////////////////////////////////////////////////////
 function chooseWord() {
     let wordBank = [
         "committee", "A body of persons delegated to consider, investigate, take action on, or report on some matter.",
@@ -85,23 +85,11 @@ function chooseWord() {
     document.getElementById("definition").innerHTML = wordBank[randomNumber + 1];
 
     return randomWord;
-
-    //document.getElementById("maxLetters").innerHTML = maxWrong;
-    //wordLength = randomWord.length;
 }
 
-function createLetters() {
-    chosenWord = chooseWord();
-    document.getElementById("chosenWord").style.color = "black";
-    document.getElementById("chosenWord").innerHTML = "";
-    letters = [];
-
-    for (let i = 0; i < chosenWord.length; i++) {
-        document.getElementById("chosenWord").innerHTML += "-";
-        letters.push(chosenWord.charAt(i));
-    }
-}
-
+///////////////////////////////////////////////////////////////////
+//     Button event, Check to See if Chosen Letter is in Word    //
+///////////////////////////////////////////////////////////////////
 function letterPressed(letter) {
     let inWord = false;
     for (let i = 0; i < letters.length; i++) {
@@ -119,6 +107,24 @@ function letterPressed(letter) {
     document.getElementById(letter).className = "pressed";
 }
 
+////////////////////////////////////////////////////////
+//     Create the Display of the Number of Letters    //
+////////////////////////////////////////////////////////
+function createLetters() {
+    chosenWord = chooseWord();
+    document.getElementById("chosenWord").style.color = "black";
+    document.getElementById("chosenWord").innerHTML = "";
+    letters = [];
+
+    for (let i = 0; i < chosenWord.length; i++) {
+        document.getElementById("chosenWord").innerHTML += "-";
+        letters.push(chosenWord.charAt(i));
+    }
+}
+
+/////////////////////////////////////////////////////////
+//     Change the Dash to Display the Chosen Letter    //
+/////////////////////////////////////////////////////////
 function replaceLine(letter) {
     let text = document.getElementById("chosenWord").innerHTML;
     for (let i = 0; i < chosenWord.length; i++) {
@@ -130,25 +136,31 @@ function replaceLine(letter) {
 
     document.getElementById("chosenWord").innerHTML = text;
     checkDone();
-    // checkDone();
 }
 
+/////////////////////////////////
+//     Update Score Display    //
+/////////////////////////////////
 function updateScore(amount) {
     score += amount;
     document.getElementById("score").innerHTML = "Score: " + score;
 }
 
+////////////////////////////////////////////////////////////////
+//     Lose Life and Update Graphics and Trigger Game Over    //
+////////////////////////////////////////////////////////////////
 function loseLife() {
     guesses++;
-    // document.getElementById("wrong").innerHTML = guesses;
     if (guesses < 7) {
         document.getElementById("hangmanPicture").src = "./images2/" + (guesses + 1) + ".jpg";
     } else {
         setTimeout(gameOver, 0);
-        // gameOver();
     }
 }
 
+//////////////////////////////////////////////////////
+//     Check if the Entire Word has Been Guessed    //
+//////////////////////////////////////////////////////
 function checkDone() {
     let done = true;
     let activeWord = document.getElementById("chosenWord").innerHTML;
@@ -159,10 +171,12 @@ function checkDone() {
     }
     if (done) {
         setTimeout(victory, 0);
-        // victory();
     }
 }
 
+////////////////////////////////
+//     Get the User's Name    //
+////////////////////////////////
 function getName() {
     input = null;
     input = prompt("Thank you for playing!\nPlease enter your name:", "Name");
@@ -172,6 +186,9 @@ function getName() {
     return input;
 }
 
+//////////////////////////////////////////////////
+//     Trigger Victory + Disable All Letters    //
+//////////////////////////////////////////////////
 function victory() {
     document.getElementById("chosenWord").style.color = "green";
     input = getName();
@@ -185,6 +202,9 @@ function victory() {
     saveScore();
 }
 
+///////////////////////////////////////////////////
+//     Trigger Game Over + Disable All Letters   //
+///////////////////////////////////////////////////
 function gameOver() {
     document.getElementById("endGame").disabled = true;
     reveal();
@@ -201,7 +221,9 @@ function gameOver() {
     saveScore();
 }
 
-// Save scores to database.
+///////////////////////////////////////
+//     Save Scores to the Database   //
+///////////////////////////////////////
 function saveScore() {
     if (input !== "") {
         // Add new entry.
@@ -221,7 +243,9 @@ function saveScore() {
     }
 }
 
-// Adds scores from database to visible Scoreboard.
+///////////////////////////////////////////////////////
+//     Get the High Scores from Database + Display   //
+///////////////////////////////////////////////////////
 function updateTests() {
     // Clear current scores.
     document.getElementById("scoreboard").innerHTML = "<tr><th>Name</th><th>Score</th></tr>";
@@ -238,6 +262,9 @@ function updateTests() {
 }
 window.onload = updateTests;
 
+///////////////////////////////////////////////////
+//     Reveal the Answer When the Game is Over   //
+///////////////////////////////////////////////////
 function reveal() {
     let word = "";
     for (let i = 0; i < letters.length; i++) {
@@ -246,6 +273,9 @@ function reveal() {
     document.getElementById("chosenWord").innerHTML = word;
 }
 
+//////////////////////////////////////////
+//     Reset Buttons + Get a New Word   //
+//////////////////////////////////////////
 function restart() {
     score = 0;
     createLetters();
