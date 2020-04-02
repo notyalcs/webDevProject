@@ -41,9 +41,9 @@ let db = firebase.firestore();
 ///////////////////////////////////////////////////////////////
 function createButtons() {
     let asciiPosition = 65;
-    
+
     for (let i = 0; i < 26; i++) {
-        
+
         let newButton = document.createElement("BUTTON");
         newButton.innerHTML = "&#" + asciiPosition;
         asciiPosition++;
@@ -51,7 +51,7 @@ function createButtons() {
         newButton.className = "alphabet";
         newButton.onclick = function () {
             letterPressed(newButton.id)
-            
+
         };
         userKeyboard.appendChild(newButton);
     }
@@ -222,7 +222,7 @@ function gameOver() {
 
     input = getName();
     document.getElementById("results").innerHTML = "Game over " + input;
-    
+
     saveScore();
 }
 
@@ -233,9 +233,9 @@ function saveScore() {
     if (input != "") {
         // Add new entry.
         db.collection("tests").doc().set({
-            name: input,
-            score: score
-        })
+                name: input,
+                score: score
+            })
             .then(function () {
                 console.log("Entry succesfully written!");
                 updateTests();
@@ -252,18 +252,20 @@ function saveScore() {
 function updateTests() {
     // Clear current scores.
     //document.getElementById("scoreboard").innerHTML = "<tr><th>Name</th><th>Score</th></tr>";
-
+    let i = 1;
     // Get the top 5 scores.
     db.collection("tests").orderBy("score", "desc").get().then((snapshot) => {
         snapshot.forEach((doc) => {
             document.getElementById("scoreboard").innerHTML += "<tr>" +
+                "<td>" + "#" + i + "</td>" +
                 "<td>" + doc.data().name + "</td>" +
                 "<td>" + doc.data().score + "</td>" +
                 "</tr>";
+                i++;
         })
     })
 }
-updateTests();
+window.onload=updateTests();
 
 ///////////////////////////////////////////////////////////////
 ////        Reveal the Answer When the Game is Over        ////
