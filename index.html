@@ -5,18 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Group 1 Set D</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
     <link rel="stylesheet" type="text/css" href="styles/style.css">
 </head>
 
 <body>
-    <h1>Hangman Game</h1>
+    <!-- <h1>Hangman Game</h1> -->
 
     <!-- Timer for the Game -->
-    <div id="timer">
+    <!-- <div id="timer">
         <h2>Time Left</h2>
         <p id="gameTimer">01:00</p>
         <p id='result'></p>
-    </div>
+    </div> -->
 
     <!-- <div id="guesses">Wrong Guesses:
         this doesn't have to be like this, it can be done differetnly, but for now i think its okay
@@ -32,7 +36,6 @@
         <p id="chosenWord"></p>
     </div>
     <!-- div for the "keyboard" buttons that the user will use to guess-->
-    <br>
     <div id="userKeyboard"></div>
     <div id="resultsBox">
         <p id="score">Score: 0</p>
@@ -43,11 +46,24 @@
         <button id="endGame" onclick="gameOver()">End</button>
     </div>
     <br>
-    <div id="container">
-        <h3>Scoreboard</h3>
-        <ol id="leaderboard">
-        </ol>
-    </div>
+    <h3>Scoreboard</h3>
+    <!-- Display Scoreboard here -->
+    <!-- <table id="scoreboard">
+        <tr>
+            <th>Name</th>
+            <th>Score</th>
+        </tr>
+    </table> -->
+
+    <table class="table" id="scoreboard">
+        <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        
+    </table>
 
     <!-------------->
     <!-- FireBase -->
@@ -60,13 +76,14 @@
      https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-analytics.js"></script>
 
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-database.js"></script>
 
     <!---------------->
     <!-- JavaScript -->
     <!---------------->
-    <script src="scripts/script.js"></script>>
+    <script src="scripts/script.js"></script>
 </body>
 
 </html>
