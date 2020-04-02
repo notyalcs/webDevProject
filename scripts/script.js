@@ -7,6 +7,7 @@
 /////////////////////////////////////////////////////////////////////
 
 
+
 ///////////////////////////////////////////////////////////////
 ////                  Constant Variables                   ////
 ///////////////////////////////////////////////////////////////
@@ -14,7 +15,6 @@ const INITIAL_ASCII = 65;
 const LETTER_COUNT = 26;
 const GUESS_LIMIT = 7;
 const GAME_OVER_WAIT = 200;
-
 ///////////////////////////////////////////////////////////////
 ////                   Global Variables                    ////
 ///////////////////////////////////////////////////////////////
@@ -24,50 +24,9 @@ let letters = [];
 let score = 0;
 let userInput;
 
-///////////////////////////////////////////////////////////////
-////                   Firebase Linking                    ////
-///////////////////////////////////////////////////////////////
-let firebaseConfig = {
-    apiKey: "AIzaSyAl5q_x-YE0E-Fh9oTEv2uRoVWT1O9pUok",
-    authDomain: "comp1537-hangman.firebaseapp.com",
-    databaseURL: "https://comp1537-hangman.firebaseio.com",
-    projectId: "comp1537-hangman",
-    storageBucket: "comp1537-hangman.appspot.com",
-    messagingSenderId: "546718337292",
-    appId: "1:546718337292:web:01d29f4f96ab851f506129",
-    measurementId: "G-K0CC2YVP2Z"
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-firebase.analytics();
 
-// Access to database.
-let db = firebase.firestore();
 
-///////////////////////////////////////////////////////////////
-////              Button Object Constructor                ////
-///////////////////////////////////////////////////////////////
-function Button(buttonLetter, givenClass) {
-    this.button = document.createElement("BUTTON");
-    this.button.innerHTML = "&#" + buttonLetter;
-    this.button.id = this.button.innerHTML;
-    this.button.className = givenClass;
-    this.button.onclick = function () {
-        letterPressed(this.id);
-    };
-}
 
-///////////////////////////////////////////////////////////////
-////             Dynamically Create Alphabet               ////
-///////////////////////////////////////////////////////////////
-function createButtons() {
-    let currentLetter = INITIAL_ASCII;
-    for (let i = 0; i < LETTER_COUNT; i++) {
-        let newButton = new Button(currentLetter, "alphabet");
-        userKeyboard.appendChild(newButton.button);
-        currentLetter++;
-    }
-}
 
 ///////////////////////////////////////////////////////////////
 ////      Choose Word and Definition From a Word Bank      ////
@@ -101,6 +60,54 @@ function chooseWord() {
 }
 
 ///////////////////////////////////////////////////////////////
+////      Create the Display of the Number of Letters      ////
+///////////////////////////////////////////////////////////////
+function createLetters() {
+    chosenWord = chooseWord();
+    document.getElementById("chosenWord").style.color = "black";
+    document.getElementById("chosenWord").innerHTML = "";
+    letters = [];
+
+    for (let i = 0; i < chosenWord.length; i++) {
+        document.getElementById("chosenWord").innerHTML += "-";
+        letters.push(chosenWord.charAt(i));
+    }
+}
+
+
+
+
+
+///////////////////////////////////////////////////////////////
+////              Button Object Constructor                ////
+///////////////////////////////////////////////////////////////
+function Button(buttonLetter, givenClass) {
+    this.button = document.createElement("BUTTON");
+    this.button.innerHTML = "&#" + buttonLetter;
+    this.button.id = this.button.innerHTML;
+    this.button.className = givenClass;
+    this.button.onclick = function () {
+        letterPressed(this.id);
+    };
+}
+
+///////////////////////////////////////////////////////////////
+////             Dynamically Create Alphabet               ////
+///////////////////////////////////////////////////////////////
+function createButtons() {
+    let currentLetter = INITIAL_ASCII;
+    for (let i = 0; i < LETTER_COUNT; i++) {
+        let newButton = new Button(currentLetter, "alphabet");
+        userKeyboard.appendChild(newButton.button);
+        currentLetter++;
+    }
+}
+
+
+
+
+
+///////////////////////////////////////////////////////////////
 ////        Check to See if Chosen Letter is in Word       ////
 ///////////////////////////////////////////////////////////////
 function letterPressed(letter) {
@@ -123,21 +130,6 @@ function letterPressed(letter) {
 }
 
 ///////////////////////////////////////////////////////////////
-////      Create the Display of the Number of Letters      ////
-///////////////////////////////////////////////////////////////
-function createLetters() {
-    chosenWord = chooseWord();
-    document.getElementById("chosenWord").style.color = "black";
-    document.getElementById("chosenWord").innerHTML = "";
-    letters = [];
-
-    for (let i = 0; i < chosenWord.length; i++) {
-        document.getElementById("chosenWord").innerHTML += "-";
-        letters.push(chosenWord.charAt(i));
-    }
-}
-
-///////////////////////////////////////////////////////////////
 ////        Change Dash to Display the Chosen Letter       ////
 ///////////////////////////////////////////////////////////////
 function replaceLine(letter) {
@@ -150,6 +142,10 @@ function replaceLine(letter) {
     }
     document.getElementById("chosenWord").innerHTML = text;
 }
+
+
+
+
 
 ///////////////////////////////////////////////////////////////
 ////                 Update Score Display                  ////
@@ -172,6 +168,10 @@ function loseLife() {
     }
 }
 
+
+
+
+
 ///////////////////////////////////////////////////////////////
 ////       Check if the Entire Word has Been Guessed       ////
 ///////////////////////////////////////////////////////////////
@@ -186,20 +186,6 @@ function checkDone() {
     if (done) {
         victory();
     }
-}
-
-///////////////////////////////////////////////////////////////
-////                 Get the User's Name                   ////
-///////////////////////////////////////////////////////////////
-function getName() {
-    userInput = null;
-    userInput = prompt("Thank you for playing!\nPlease enter your name:", "Name");
-
-    if (userInput == null || userInput == "Name") {
-        getName();
-    }
-
-    return userInput;
 }
 
 ///////////////////////////////////////////////////////////////
@@ -238,47 +224,6 @@ function gameOver() {
 }
 
 ///////////////////////////////////////////////////////////////
-////              Save Scores to the Database              ////
-///////////////////////////////////////////////////////////////
-function saveScore() {
-    if (userInput != "") {
-        // Add new entry.
-        db.collection("tests").doc().set({
-                name: userInput,
-                score: score
-            })
-            .then(function () {
-                console.log("Entry succesfully written!");
-                updateTests();
-            })
-            .catch(function (err) {
-                console.error("Error writing entry: ", err);
-            });
-    }
-}
-
-///////////////////////////////////////////////////////////////
-////       Get the High Scores from Database + Display     ////
-///////////////////////////////////////////////////////////////
-function updateTests() {
-    // Clear current scores.
-    document.getElementById("scoreboard").innerHTML = "<thead class='thead-dark'><tr><th>Rank</th><th>Name</th><th>Score</th></tr></thead>";
-    
-    // Get the scores in descending order
-    let rank = 1;
-    db.collection("tests").orderBy("score", "desc").get().then((snapshot) => {
-        snapshot.forEach((doc) => {
-            document.getElementById("scoreboard").innerHTML += "<tr>" +
-                "<td>" + "#" + rank + "</td>" +
-                "<td>" + doc.data().name + "</td>" +
-                "<td>" + doc.data().score + "</td>" +
-                "</tr>";
-                rank++;
-        })
-    })
-}
-
-///////////////////////////////////////////////////////////////
 ////        Reveal the Answer When the Game is Over        ////
 ///////////////////////////////////////////////////////////////
 function reveal() {
@@ -288,6 +233,23 @@ function reveal() {
     }
     document.getElementById("chosenWord").innerHTML = word;
 }
+///////////////////////////////////////////////////////////////
+////                 Get the User's Name                   ////
+///////////////////////////////////////////////////////////////
+function getName() {
+    userInput = null;
+    userInput = prompt("Thank you for playing!\nPlease enter your name:", "Name");
+
+    if (userInput == null || userInput == "Name") {
+        getName();
+    }
+
+    return userInput;
+}
+
+
+
+
 
 ///////////////////////////////////////////////////////////////
 ////             Reset Buttons + Get a New Word            ////
@@ -310,6 +272,74 @@ function restart() {
 
     console.log(letters);
 }
+
+
+
+
+
+///////////////////////////////////////////////////////////////
+////                   Firebase Linking                    ////
+///////////////////////////////////////////////////////////////
+let firebaseConfig = {
+    apiKey: "AIzaSyAl5q_x-YE0E-Fh9oTEv2uRoVWT1O9pUok",
+    authDomain: "comp1537-hangman.firebaseapp.com",
+    databaseURL: "https://comp1537-hangman.firebaseio.com",
+    projectId: "comp1537-hangman",
+    storageBucket: "comp1537-hangman.appspot.com",
+    messagingSenderId: "546718337292",
+    appId: "1:546718337292:web:01d29f4f96ab851f506129",
+    measurementId: "G-K0CC2YVP2Z"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+// Access to database.
+const DB = firebase.firestore();
+
+///////////////////////////////////////////////////////////////
+////              Save Scores to the Database              ////
+///////////////////////////////////////////////////////////////
+function saveScore() {
+    if (userInput != "") {
+        // Add new entry.
+        DB.collection("tests").doc().set({
+                name: userInput,
+                score: score
+            })
+            .then(function () {
+                console.log("Entry succesfully written!");
+                updateTests();
+            })
+            .catch(function (err) {
+                console.error("Error writing entry: ", err);
+            });
+    }
+}
+
+///////////////////////////////////////////////////////////////
+////       Get the High Scores from Database + Display     ////
+///////////////////////////////////////////////////////////////
+function updateTests() {
+    // Clear current scores.
+    document.getElementById("scoreboard").innerHTML = "<thead class='thead-dark'><tr><th>Rank</th><th>Name</th><th>Score</th></tr></thead>";
+    
+    // Get the scores in descending order
+    let rank = 1;
+    DB.collection("tests").orderBy("score", "desc").get().then((snapshot) => {
+        snapshot.forEach((doc) => {
+            document.getElementById("scoreboard").innerHTML += "<tr>" +
+                "<td>" + "#" + rank + "</td>" +
+                "<td>" + doc.data().name + "</td>" +
+                "<td>" + doc.data().score + "</td>" +
+                "</tr>";
+                rank++;
+        })
+    })
+}
+
+
+
+
 
 ///////////////////////////////////////////////////////////////
 ////          On load Create Buttons + Start Game          ////
