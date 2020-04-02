@@ -263,7 +263,7 @@ function updateTests() {
         })
     })
 }
-//updateTests();
+window.onload=updateTests();
 
 ///////////////////////////////////////////////////////////////
 ////        Reveal the Answer When the Game is Over        ////
