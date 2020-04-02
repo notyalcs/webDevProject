@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Group 1 Set D</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
     <link rel="stylesheet" type="text/css" href="styles/style.css">
 </head>
 
@@ -43,13 +47,23 @@
         <button id="endGame" onclick="gameOver()">End</button>
     </div>
     <br>
-    <h3>Scoreboard</h3>>
+    <h3>Scoreboard</h3>
     <!-- Display Scoreboard here -->
-    <table id="scoreboard">
+    <!-- <table id="scoreboard">
         <tr>
             <th>Name</th>
             <th>Score</th>
         </tr>
+    </table> -->
+
+    <table class="table" id="scoreboard">
+        <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        
     </table>
 
     <!-------------->
