@@ -152,9 +152,9 @@ function updateScore(amount) {
 function loseLife() {
     guesses++;
     if (guesses < 7) {
-        document.getElementById("hangmanPicture").src = "./images2/" + (guesses + 1) + ".jpg";
+        document.getElementById("hangmanPicture").src = "./images/" + (guesses + 1) + ".jpg";
     } else {
-        document.getElementById("hangmanPicture").src = "./images2/8.jpg";
+        document.getElementById("hangmanPicture").src = "./images/8.jpg";
         setTimeout(gameOver, 200);
     }
 }
@@ -279,7 +279,7 @@ function restart() {
     createLetters();
 
     guesses = 0;
-    document.getElementById("hangmanPicture").src = "./images2/" + (guesses + 1) + ".jpg";
+    document.getElementById("hangmanPicture").src = "./images/" + (guesses + 1) + ".jpg";
     document.getElementById("results").innerHTML = "";
 
     let buttonLetters = document.getElementsByClassName("pressed");
