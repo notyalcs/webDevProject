@@ -103,6 +103,8 @@ function letterPressed(letter) {
     if (inWord == false) {
         loseLife();
         updateScore(-1);
+    } else {
+        setTimeout(checkDone, 0);
     }
     document.getElementById(letter).disabled = true;
     document.getElementById(letter).className = "pressed";
@@ -136,7 +138,6 @@ function replaceLine(letter) {
     }
 
     document.getElementById("chosenWord").innerHTML = text;
-    checkDone();
 }
 
 ///////////////////////////////////////////////////////////////
