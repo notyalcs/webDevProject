@@ -181,9 +181,6 @@ function checkDone() {
 function getName() {
     input = null;
     input = prompt("Thank you for playing!\nPlease enter your name:", "Name");
-    // setTimeout(function () {
-    //     name = prompt("Thank you for playing!\nPlease enter your name:", "Name")
-    // }, 0);
     return input;
 }
 
