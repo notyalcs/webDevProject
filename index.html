@@ -5,78 +5,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Group 1 Set D</title>
+    
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Firebase Link -->
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+    <!-- CSS Link -->
     <link rel="stylesheet" type="text/css" href="styles/style.css">
 </head>
 
 <body>
-    <!-- <h1>Hangman Game</h1> -->
-
-    <!-- Timer for the Game -->
-    <!-- <div id="timer">
-        <h2>Time Left</h2>
-        <p id="gameTimer">01:00</p>
-        <p id='result'></p>
-    </div> -->
-
-    <!-- <div id="guesses">Wrong Guesses:
-        this doesn't have to be like this, it can be done differetnly, but for now i think its okay
-        This first span will be incremented whenever the user incorrectly guesses
-        this second span will be used to put the amount of letters in the word here
-        <label id="wrong">0</label>
-        <span id="maxLetters"></span>
-    </div> -->
-    <!-- <br><br> -->
+    <!-- div for centering graphics and helpful labels -->
     <div class="center">
         <img id="hangmanPicture" src="images/1.jpg" alt="hangman picture">
         <p id="definition"></p>
         <p id="chosenWord"></p>
     </div>
+
     <!-- div for the "keyboard" buttons that the user will use to guess-->
     <div id="userKeyboard"></div>
     <div id="resultsBox">
         <p id="score">Score: 0</p>
         <p id="results"></p>
     </div>
+
+    <!-- div for options of ending early, Restart and End -->
     <div id="endEarly">
         <button onclick="restart()">Restart</button>
         <button id="endGame" onclick="gameOver()">End</button>
     </div>
-    <br>
-    <h3 id= "board">Scoreboard</h3>
-    <!-- Display Scoreboard here -->
-    <!-- <table id="scoreboard">
-        <tr>
-            <th>Name</th>
-            <th>Score</th>
-        </tr>
-    </table> -->
-<div class = "table">
-    <table class="table" id="scoreboard">
-        <thead class="thead-dark">
-            <tr>
-                <th>Rank</th>
-                <th>Name</th>
-                <th>Score</th>
-            </tr>
-        </thead>
-        
-    </table>
-</div>
+    <br><br>
+
+    <!-- leaderboard title and table -->
+    <h3 id= "board">Leaderboard</h3>
+    <div class = "table">
+        <table class="table" id="scoreboard">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <br><br>
+
     <!-------------->
     <!-- FireBase -->
     <!-------------->
-
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-analytics.js"></script>
-
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-database.js"></script>
