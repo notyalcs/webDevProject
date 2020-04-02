@@ -172,7 +172,7 @@ function checkDone() {
         }
     }
     if (done) {
-        setTimeout(victory, 0);
+        victory();
     }
 }
 
@@ -253,7 +253,7 @@ function updateTests() {
     document.getElementById("scoreboard").innerHTML = "<tr><th>Name</th><th>Score</th></tr>";
 
     // Get the top 5 scores.
-    db.collection("tests").orderBy("score", "desc").limit(5).get().then((snapshot) => {
+    db.collection("tests").orderBy("score", "desc").get().then((snapshot) => {
         snapshot.forEach((doc) => {
             document.getElementById("scoreboard").innerHTML += "<tr>" +
                 "<td>" + doc.data().name + "</td>" +
@@ -262,7 +262,7 @@ function updateTests() {
         })
     })
 }
-window.onload = updateTests;
+updateTests();
 
 ///////////////////////////////////////////////////////////////
 ////        Reveal the Answer When the Game is Over        ////
