@@ -10,11 +10,7 @@
 ////                   Global Variables                    ////
 ///////////////////////////////////////////////////////////////
 let chosenWord = "";
-let wordAnswer = "";
-let maxWrong = 6;
 let guesses = 0;
-let wordLength = 0;
-let status = null;
 let letters = [];
 let score = 0;
 let input;
@@ -299,28 +295,5 @@ function restart() {
 }
 
 
-////-------- Timer for the Game -------//
-
-// function timer() {
-//     let sec = 59;
-//     let timer = setInterval(function () {
-//         document.getElementById('gameTimer').innerHTML = '00:' + sec;
-//         sec--;
-//         if (sec < 0) {
-//             clearInterval(timer);
-//         }
-//     }, 1000);
-// }
-
-//window.onload = timer;
-
-
-// function wordGuess() {
-//     for (let i = 0; i < wordLength; i++) {
-
-//     }
-//     document.getElementById("guessedWord").innerHTML = status
-// }
 createButtons();
 createLetters();
-//chooseWord();
