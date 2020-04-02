@@ -155,7 +155,7 @@ function loseLife() {
         document.getElementById("hangmanPicture").src = "./images2/" + (guesses + 1) + ".jpg";
     } else {
         document.getElementById("hangmanPicture").src = "./images2/8.jpg";
-        setTimeout(gameOver, 50);
+        setTimeout(gameOver, 200);
     }
 }
 
