@@ -251,7 +251,7 @@ function saveScore() {
 ///////////////////////////////////////////////////////////////
 function updateTests() {
     // Clear current scores.
-    document.getElementById("scoreboard").innerHTML = "<tr><th>Name</th><th>Score</th></tr>";
+    //document.getElementById("scoreboard").innerHTML = "<tr><th>Name</th><th>Score</th></tr>";
 
     // Get the top 5 scores.
     db.collection("tests").orderBy("score", "desc").get().then((snapshot) => {
