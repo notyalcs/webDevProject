@@ -182,6 +182,11 @@ function checkDone() {
 function getName() {
     input = null;
     input = prompt("Thank you for playing!\nPlease enter your name:", "Name");
+
+    if (input == null || input == "Name") {
+        getName();
+    }
+
     return input;
 }
 
@@ -224,7 +229,7 @@ function gameOver() {
 ////              Save Scores to the Database              ////
 ///////////////////////////////////////////////////////////////
 function saveScore() {
-    if (input !== "") {
+    if (input != "") {
         // Add new entry.
         db.collection("tests").doc().set({
             name: input,
@@ -237,8 +242,6 @@ function saveScore() {
             .catch(function (err) {
                 console.error("Error writing entry: ", err);
             });
-    } else {
-        alert("Please enter a name");
     }
 }
 
@@ -247,7 +250,7 @@ function saveScore() {
 ///////////////////////////////////////////////////////////////
 function updateTests() {
     // Clear current scores.
-    //document.getElementById("scoreboard").innerHTML = "<tr><th>Name</th><th>Score</th></tr>";
+    document.getElementById("scoreboard").innerHTML = "<tr><th>Name</th><th>Score</th></tr>";
 
     // Get the top 5 scores.
     db.collection("tests").orderBy("score", "desc").limit(5).get().then((snapshot) => {
