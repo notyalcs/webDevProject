@@ -95,3 +95,10 @@ div table thead tr th {
     top: 0;
     position: sticky;
 }  
+
+#board{
+text-align: center;
+font-family: cursive;
+color: brown;
+font-weight: bolder;
+}
