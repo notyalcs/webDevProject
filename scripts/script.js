@@ -67,6 +67,8 @@ function createButtons() {
 function chooseWord() {
     let wordBank = [
         "committee", "A body of persons delegated to consider, investigate, take action on, or report on some matter.",
+        "tattoo", "A form of body modification where a design is made by inserting ink.",
+        "electricity", "Is the set of physical phenomena associated with the presence and motion of electric charge.",
         "syndrome", "A group of signs and symptons that occur together and characterize a particular abnormality or condition.",
         "dizzy", "Having a whirling sensation in the head with a tendency to fall.",
         "junk", "Something of little meaning, worth, or significance.",
